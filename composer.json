@@ -9,6 +9,11 @@
         }
     ],
     "minimum-stability": "stable",
+    "autoload": {
+        "psr-4": {
+            "Kevupton\\LaravelPackageServiceProvider\\": "src/Kevupton/LaravelPackageServiceProvider/"
+        }
+    },
     "require": {},
     "require-dev": {
         "laravel/laravel": "^5.5",
