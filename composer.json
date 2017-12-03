@@ -1,5 +1,5 @@
 {
-    "name": "kevupton/laravel-package-service-prodiver",
+    "name": "kevupton/laravel-package-service-provider",
     "description": "Service provider for laravel to allow for multiple implementations",
     "type": "library",
     "authors": [
