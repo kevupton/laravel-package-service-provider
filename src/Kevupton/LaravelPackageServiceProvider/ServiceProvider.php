@@ -20,7 +20,7 @@ class ServiceProvider extends BaseServiceProvider
      */
     protected function registerConfig ($path, $name)
     {
-        $this->publishes([__DIR__ . $path => config_path($name)]);
+        $this->publishes([$path => config_path($name)]);
     }
 
     /**
