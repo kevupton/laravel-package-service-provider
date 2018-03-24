@@ -5,10 +5,12 @@
  * Date: 3/12/2017
  * Time: 6:11 PM
  */
+
 namespace Kevupton\LaravelPackageServiceProvider;
 
 use Illuminate\Foundation\AliasLoader;
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
+use Laravel\Lumen\Application;
 
 class ServiceProvider extends BaseServiceProvider
 {
@@ -18,9 +20,25 @@ class ServiceProvider extends BaseServiceProvider
      * @param string $path
      * @param string $name
      */
-    protected function registerConfig ($path, $name)
+    protected function registerConfig($path, $name)
     {
         $this->publishes([$path => config_path($name)]);
+    }
+
+    /**
+     * Gets the router for the specific application
+     *
+     * @return \Illuminate\Routing\Router|\Laravel\Lumen\Routing\Router
+     */
+    protected function router()
+    {
+        if ($this->isLaravel()) {
+            return app('router');
+        } else {
+            /** @var Application $app */
+            $app = $this->app;
+            return $app->router;
+        }
     }
 
     /**
@@ -28,7 +46,7 @@ class ServiceProvider extends BaseServiceProvider
      *
      * @return bool
      */
-    protected function isLumen ()
+    protected function isLumen()
     {
         return is_a($this->app, 'Laravel\Lumen\Application');
     }
@@ -38,7 +56,7 @@ class ServiceProvider extends BaseServiceProvider
      *
      * @return bool
      */
-    protected function isLaravel ()
+    protected function isLaravel()
     {
         return is_a($this->app, 'Illuminate\Foundation\Application');
     }
@@ -50,7 +68,7 @@ class ServiceProvider extends BaseServiceProvider
      * @param string $class
      * @param string $name
      */
-    protected function registerAlias ($class, $name)
+    protected function registerAlias($class, $name)
     {
         if ($this->isLaravel()) {
             AliasLoader::getInstance()->alias($name, $class);
